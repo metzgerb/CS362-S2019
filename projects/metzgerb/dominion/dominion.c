@@ -1332,7 +1332,7 @@ int updateCoins(int player, struct gameState *state, int bonus)
 begin refactor card effects
 ******************************************************************************/
 //handles card effect for Smithy card
-void smithy_effect(int currentPlayer, struct gameState* state, int handPos)
+int smithy_effect(int currentPlayer, struct gameState* state, int handPos)
 {
 	//+3 Cards
 	for (int i = 0; i < 3; i++)
@@ -1342,14 +1342,17 @@ void smithy_effect(int currentPlayer, struct gameState* state, int handPos)
 
 	//discard card from hand
 	discardCard(handPos, currentPlayer, state, 0);
+
+	return 0;
 }
 
 //handles card effect for Adventurer card
-void adventurer_effect(int currentPlayer, struct gameState* state)
+int adventurer_effect(int currentPlayer, struct gameState* state)
 {
 	int drawntreasure = 0;
 	int temphand[MAX_HAND];
 	int z = 0;
+	int cardDrawn;
 
 	while (drawntreasure < 2) 
 	{
@@ -1375,10 +1378,12 @@ void adventurer_effect(int currentPlayer, struct gameState* state)
 		state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
 		z = z - 1;
 	}
+
+	return 0;
 }
 
 //handles card effect for Great Hall card
-void great_hall_effect(int currentPlayer, struct gameState* state, int handPos)
+int great_hall_effect(int currentPlayer, struct gameState* state, int handPos)
 {
 	//+1 Card
 	drawCard(currentPlayer, state);
@@ -1388,10 +1393,12 @@ void great_hall_effect(int currentPlayer, struct gameState* state, int handPos)
 
 	//discard card from hand
 	discardCard(handPos, currentPlayer, state, 0);
+
+	return 0;
 }
 
 //handles card effect for Ambassador card
-void ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos)
+int ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos)
 {
 	int j = 0;		//used to check if player has enough cards to discard
 
@@ -1449,10 +1456,12 @@ void ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameS
 			}
 		}
 	}
+
+	return 0;
 }
 
 //handles card effect for Sea Hag card
-void sea_hag_effect(int currentPlayer, struct gameState* state)
+int sea_hag_effect(int currentPlayer, struct gameState* state)
 {
 	for (int i = 0; i < state->numPlayers; i++) 
 	{
@@ -1464,6 +1473,8 @@ void sea_hag_effect(int currentPlayer, struct gameState* state)
 			state->deck[i][state->deckCount[i]--] = curse; //Top card now a curse
 		}
 	}
+
+	return 0;
 }
 
 //end of dominion.c
