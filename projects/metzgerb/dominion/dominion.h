@@ -129,10 +129,10 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
    1, others to 0 */
 
 //refactored card effects
-void smithy(int currentPlayer, struct gameState* state, int handPos);
-void adventurer(int currentPlayer, struct gameState* state);
-void great_hall(int currentPlayer, struct gameState* state, int handPos);
-void ambassador(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos);
-void sea_hag(int currentPlayer, struct gameState* state);
+void smithy_effect(int currentPlayer, struct gameState* state, int handPos);
+void adventurer_effect(int currentPlayer, struct gameState* state);
+void great_hall_effect(int currentPlayer, struct gameState* state, int handPos);
+void ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos);
+void sea_hag_effect(int currentPlayer, struct gameState* state);
 
 #endif

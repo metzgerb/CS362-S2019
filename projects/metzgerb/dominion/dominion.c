@@ -1332,7 +1332,7 @@ int updateCoins(int player, struct gameState *state, int bonus)
 begin refactor card effects
 ******************************************************************************/
 //handles card effect for Smithy card
-void smithy(int currentPlayer, struct gameState* state, int handPos)
+void smithy_effect(int currentPlayer, struct gameState* state, int handPos)
 {
 	//+3 Cards
 	for (int i = 0; i < 3; i++)
@@ -1345,7 +1345,7 @@ void smithy(int currentPlayer, struct gameState* state, int handPos)
 }
 
 //handles card effect for Adventurer card
-void adventurer(int currentPlayer, struct gameState* state)
+void adventurer_effect(int currentPlayer, struct gameState* state)
 {
 	int drawntreasure = 0;
 	int temphand[MAX_HAND];
@@ -1378,7 +1378,7 @@ void adventurer(int currentPlayer, struct gameState* state)
 }
 
 //handles card effect for Great Hall card
-void great_hall(int currentPlayer, struct gameState* state, int handPos)
+void great_hall_effect(int currentPlayer, struct gameState* state, int handPos)
 {
 	//+1 Card
 	drawCard(currentPlayer, state);
@@ -1391,7 +1391,7 @@ void great_hall(int currentPlayer, struct gameState* state, int handPos)
 }
 
 //handles card effect for Ambassador card
-void ambassador(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos)
+void ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos)
 {
 	int j = 0;		//used to check if player has enough cards to discard
 
@@ -1452,7 +1452,7 @@ void ambassador(int choice1, int choice2, int currentPlayer, struct gameState* s
 }
 
 //handles card effect for Sea Hag card
-void sea_hag(int currentPlayer, struct gameState* state)
+void sea_hag_effect(int currentPlayer, struct gameState* state)
 {
 	for (int i = 0; i < state->numPlayers; i++) 
 	{
