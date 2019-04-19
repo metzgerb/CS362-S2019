@@ -128,11 +128,5 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
 
-//refactored card effects
-int smithy_effect(int currentPlayer, struct gameState* state, int handPos);
-int adventurer_effect(int currentPlayer, struct gameState* state);
-int great_hall_effect(int currentPlayer, struct gameState* state, int handPos);
-int ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameState* state, int handPos);
-int sea_hag_effect(int currentPlayer, struct gameState* state);
 
 #endif
