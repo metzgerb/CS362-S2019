@@ -1236,7 +1236,7 @@ begin refactor card effects
 int smithy_effect(int currentPlayer, struct gameState* state, int handPos)
 {
 	//+3 Cards
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		drawCard(currentPlayer, state);
 	}
@@ -1274,7 +1274,7 @@ int adventurer_effect(int currentPlayer, struct gameState* state)
 			z++;
 		}
 	}
-	while (z - 1 >= 0) 
+	while (z >= 0) 
 	{
 		state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
 		z = z - 1;
@@ -1290,6 +1290,7 @@ int great_hall_effect(int currentPlayer, struct gameState* state, int handPos)
 	drawCard(currentPlayer, state);
 
 	//+1 Actions
+	state->numActions++;
 	state->numActions++;
 
 	//discard card from hand
@@ -1366,13 +1367,10 @@ int sea_hag_effect(int currentPlayer, struct gameState* state)
 {
 	for (int i = 0; i < state->numPlayers; i++) 
 	{
-		if (i != currentPlayer) 
-		{
-			state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
-			state->deckCount[i]--;
-			state->discardCount[i]++;
-			state->deck[i][state->deckCount[i]--] = curse; //Top card now a curse
-		}
+		state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
+		state->deckCount[i]--;
+		state->discardCount[i]++;
+		state->deck[i][state->deckCount[i]--] = curse; //Top card now a curse
 	}
 
 	return 0;
