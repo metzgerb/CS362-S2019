@@ -75,6 +75,6 @@ void testSummary(int pass, int fail)
 	printf("PASSED: %d\n", pass);
 	printf("FAILED: %d\n", fail);
 	printf("TOTAL: %d\n", pass + fail);
-	printf("END OF UNIT TEST ----------------------------------------\n")
+	printf("END OF UNIT TEST ----------------------------------------\n");
 	return;
 }
