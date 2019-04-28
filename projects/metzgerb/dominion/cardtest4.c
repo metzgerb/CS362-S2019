@@ -1,11 +1,10 @@
-/* -----------------------------------------------------------------------
- * Demonstration of how to write unit tests for dominion-base
- * Include the following lines in your makefile:
- *
- * testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
- *      gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
- * -----------------------------------------------------------------------
- */
+/******************************************************************************
+* Program Name: unittest1.c
+* Description: Runs tests on the great_hall_effect function to validate the
+*	number of cards drawn during the function is correct (checking gamestate)
+* Author: Brian Metzger (metzgerb@oregonstate.edu)
+* Created: 2019-04-28
+******************************************************************************/
 
 #include "dominion.h"
 #include "dominion_helpers.h"
@@ -13,70 +12,69 @@
 #include <stdio.h>
 #include <assert.h>
 #include "rngs.h"
+#include <stdlib.h>
 
 // set NOISY_TEST to 0 to remove printfs from output
 #define NOISY_TEST 1
+#define TEST_CARD great_hall
+#define TEST_CARD_NAME "great_hall"
 
-int main() {
-    int i;
-    int seed = 1000;
-    int numPlayer = 2;
-    int maxBonus = 10;
-    int p, r, handCount;
-    int bonus;
-    int k[10] = {adventurer, council_room, feast, gardens, mine
-               , remodel, smithy, village, baron, great_hall};
-    struct gameState G;
-    int maxHandCount = 5;
-    // arrays of all coppers, silvers, and golds
-    int coppers[MAX_HAND];
-    int silvers[MAX_HAND];
-    int golds[MAX_HAND];
-    for (i = 0; i < MAX_HAND; i++)
-    {
-        coppers[i] = copper;
-        silvers[i] = silver;
-        golds[i] = gold;
-    }
+void testSummary(int pass, int fail);
 
-    printf ("TESTING updateCoins():\n");
-    for (p = 0; p < numPlayer; p++)
-    {
-        for (handCount = 1; handCount <= maxHandCount; handCount++)
-        {
-            for (bonus = 0; bonus <= maxBonus; bonus++)
-            {
-#if (NOISY_TEST == 1)
-                printf("Test player %d with %d treasure card(s) and %d bonus.\n", p, handCount, bonus);
-#endif
-                memset(&G, 23, sizeof(struct gameState));   // clear the game state
-                r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
-                G.handCount[p] = handCount;                 // set the number of cards on hand
-                memcpy(G.hand[p], coppers, sizeof(int) * handCount); // set all the cards to copper
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 1 + bonus);
-#endif
-                assert(G.coins == handCount * 1 + bonus); // check if the number of coins is correct
+int main()
+{
+	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
+	int newCards = 0;
+	int discarded = 1;
+	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+	int seed = 1000;
+	int numPlayers = 2;
+	int thisPlayer = 0;
+	struct gameState G, testG;
+	int k[10] = { adventurer, great_hall, ambassador, minion, mine, cutpurse,
+			sea_hag, tribute, smithy, council_room };
 
-                memcpy(G.hand[p], silvers, sizeof(int) * handCount); // set all the cards to silver
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 2 + bonus);
-#endif
-                assert(G.coins == handCount * 2 + bonus); // check if the number of coins is correct
+	// initialize a game state and player cards
+	initializeGame(numPlayers, k, seed, &G);
 
-                memcpy(G.hand[p], golds, sizeof(int) * handCount); // set all the cards to gold
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 3 + bonus);
-#endif
-                assert(G.coins == handCount * 3 + bonus); // check if the number of coins is correct
-            }
-        }
-    }
+	printf("TESTING: %s  ----------------------------------------\n", TEST_CARD_NAME);
 
-    printf("All tests passed!\n");
+	// ----------- TEST 1: count of cards in hand is unchanged --------------
+	printf("TEST 1: choice1 = 1 = +2 cards\n");
 
-    return 0;
+	// copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+	//set expected change values
+	newCards = 1;
+	discarded = 1;
+
+	//print results
+	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	printf("TEST 1 RESULTS: ");
+	if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
+	{
+		printf("FAIL\n");
+		fail++;
+	}
+	else
+	{
+		printf("PASS\n");
+		pass++;
+	}
+
+	testSummary(pass, fail);
+
+	return 0;
+}
+
+void testSummary(int pass, int fail)
+{
+	printf("RESULTS FOR %s ----------------------------------------\n", TEST_CARD_NAME);
+	printf("PASSED: %d\n", pass);
+	printf("FAILED: %d\n", fail);
+	printf("TOTAL: %d\n", pass + fail);
+	printf("END OF UNIT TEST ----------------------------------------\n")
+		return;
 }
