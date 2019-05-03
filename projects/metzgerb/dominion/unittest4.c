@@ -37,8 +37,6 @@ int main()
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
 
-	printf("TESTING: %s  ----------------------------------------\n", TEST_CARD_NAME);
-
 	// ----------- TEST 1: count of cards in hand is unchanged --------------
 	printf("TEST 1: choice1 = 1 = +2 cards\n");
 
@@ -51,7 +49,7 @@ int main()
 	discarded = 1;
 
 	//print results
-	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	printf("hand count = %d, expected = %d\n\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	printf("TEST 1 RESULTS: ");
 	if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
 	{
@@ -71,10 +69,10 @@ int main()
 
 void testSummary(int pass, int fail)
 {
-	printf("RESULTS FOR %s ----------------------------------------\n", TEST_CARD_NAME);
+	printf("\nTOTAL RESULTS FOR %s\n", TEST_CARD_NAME);
 	printf("PASSED: %d\n", pass);
 	printf("FAILED: %d\n", fail);
 	printf("TOTAL: %d\n", pass + fail);
-	printf("END OF UNIT TEST ----------------------------------------\n");
+	printf("END OF UNIT TEST\n");
 	return;
 }
