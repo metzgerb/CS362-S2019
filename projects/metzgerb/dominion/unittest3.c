@@ -93,12 +93,13 @@ int main()
 		// ----------- POSITIVE TEST: discard pile increased for other players --------------
 		for (int p = 0; p < numPlayers; p++)
 		{
-			//set expected change values
-			discarded = 1;
 
 			//test oracle to check if test passed or failed
 			if (p == thisPlayer)
 			{
+				//set expected change values (should discard sea_hag)
+				discarded = 1;
+								
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p]);
 				
@@ -115,6 +116,9 @@ int main()
 			}
 			else
 			{
+				//set expected change values (should discard sea_hag and top card of deck)
+				discarded = 2;
+				
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
 
@@ -191,12 +195,13 @@ int main()
 		// ----------- POSITIVE TEST: discard pile increased for other players --------------
 		for (int p = 0; p < numPlayers; p++)
 		{
-			//set expected change values
-			discarded = 1;
 
 			//test oracle to check if test passed or failed
 			if (p == thisPlayer)
 			{
+				//set expected change values (should discard sea_hag)
+				discarded = 1;
+
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p]);
 
@@ -213,6 +218,9 @@ int main()
 			}
 			else
 			{
+				//set expected change values (discard top card and sea_hag)
+				discarded = 2;
+
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
 
