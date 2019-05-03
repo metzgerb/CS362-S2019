@@ -14,8 +14,6 @@
 #include "rngs.h"
 #include <stdlib.h>
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 1
 #define TEST_CARD great_hall
 #define TEST_CARD_NAME "great_hall"
 
@@ -26,6 +24,7 @@ int main()
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
 	int newCards = 0;
 	int discarded = 1;
+	int actionChange = 1;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
 	int numPlayers = 2;
@@ -33,35 +32,59 @@ int main()
 	struct gameState G, testG;
 	int k[10] = { adventurer, great_hall, ambassador, minion, mine, cutpurse,
 			sea_hag, tribute, smithy, council_room };
-
+	
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
 
-	// ----------- TEST 1: count of cards in hand is unchanged --------------
-	printf("TEST 1: choice1 = 1 = +2 cards\n");
-
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-	cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
-
-	//set expected change values
-	newCards = 1;
-	discarded = 1;
-
-	//print results
-	printf("hand count = %d, expected = %d\n\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
-	printf("TEST 1 RESULTS: ");
-	if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
+	//test with different sized hands
+	for (int h = 1; h < 60; h += 7)
 	{
-		printf("FAIL\n");
-		fail++;
-	}
-	else
-	{
-		printf("PASS\n");
-		pass++;
-	}
+		// copy the game state to a test case
+		memcpy(&testG, &G, sizeof(struct gameState));
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
+		//change handcount to different value
+		G.handCount[thisPlayer] = h;
+
+		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
+		
+		//set expected change values
+		newCards = 1;
+		discarded = 1;
+
+		//print results
+		printf("Test hand count = %d, expected = %d: ", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
+		//print results
+		printf("Test hand count = %d, expected = %d: ", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.numActions != G.numActions + actionChange)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+	}
+	
+	//output test results
 	testSummary(pass, fail);
 
 	return 0;

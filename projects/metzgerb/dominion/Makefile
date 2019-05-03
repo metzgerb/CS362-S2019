@@ -16,7 +16,7 @@ testDrawCard: testDrawCard.c dominion.o rngs.o
 unittestresults: dominion.o rngs.o unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c
 	echo "Result for running unit tests:" > unittestresults.out
 	
-	echo "\n--------------------unittest1.c:\n" >> unittestresults.out
+	echo -e "\n--------------------unittest1.c:\n" >> unittestresults.out
 	gcc -o unittest1 dominion.o rngs.o unittest1.c $(CFLAGS)
 	./unittest1 >> unittestresults.out
 	echo -e "\n--------------------unittest1.c gcov:\n" >> unittestresults.out
