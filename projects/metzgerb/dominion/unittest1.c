@@ -37,7 +37,7 @@ int main()
 	initializeGame(numPlayers, k, seed, &G);
 	
 	//print results
-	printf("Testing %s with various hand counts\n\n", TEST_CARD_NAME);
+	printf("TEST 1: Testing %s with various starting hand counts\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
 	for (int h = 1; h < 60; h += 7)
@@ -61,7 +61,7 @@ int main()
 		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
+		if (testG.handCount[thisPlayer] != h + newCards - discarded)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -90,6 +90,62 @@ int main()
 
 		printf("\n");
 	}
+
+	//print results
+	printf("TEST 2: Testing %s with various starting action counts\n\n", TEST_CARD_NAME);
+
+	//test with different number of starting actions
+	for (int a = 1; a < 30; h += 3)
+	{
+		// copy the game state to a test case
+		memcpy(&testG, &G, sizeof(struct gameState));
+
+		//change handcount to different value
+		testG.numActions = a;
+
+		//run effect to test
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
+
+		//set expected change values
+		newCards = 1;
+		discarded = 1;
+
+		//print results
+		printf("action count = %d -- Test hand count -- actual = %d, expected = %d: ", a, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
+		//print results
+		printf("action count = %d -- Test action count -- actual = %d, expected = %d: ", a, testG.numActions, a + actionChange);
+
+		//test oracle to check if test passed or failed
+		if (testG.numActions != a + actionChange)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		printf("\n");
+	}
+
 	
 	//output test results
 	testSummary(pass, fail);
