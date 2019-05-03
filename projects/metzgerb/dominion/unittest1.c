@@ -1,7 +1,8 @@
 /******************************************************************************
 * Program Name: unittest1.c
 * Description: Runs tests on the great_hall_effect function to validate the
-*	number of cards drawn during the function is correct (checking gamestate)
+*	number of cards drawn during the function is correct and the number of
+*	actions earned is correct (Positive tests)
 * Author: Brian Metzger (metzgerb@oregonstate.edu)
 * Created: 2019-04-28
 ******************************************************************************/
