@@ -102,7 +102,7 @@ int main()
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p]);
 				
-				if (testG->discardCount[p] != G.discardCount[p])
+				if (testG.discardCount[p] != G.discardCount[p])
 				{
 					printf("FAIL\n");
 					fail++;
@@ -118,7 +118,7 @@ int main()
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
 
-				if (testG->discardCount[p] != G.discardCount[p] + discarded)
+				if (testG.discardCount[p] != G.discardCount[p] + discarded)
 				{
 					printf("FAIL\n");
 					fail++;
@@ -200,7 +200,7 @@ int main()
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p]);
 
-				if (testG->discardCount[p] != G.discardCount[p])
+				if (testG.discardCount[p] != G.discardCount[p])
 				{
 					printf("FAIL\n");
 					fail++;
@@ -216,7 +216,7 @@ int main()
 				//print results
 				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
 
-				if (testG->discardCount[p] != G.discardCount[p] + discarded)
+				if (testG.discardCount[p] != G.discardCount[p] + discarded)
 				{
 					printf("FAIL\n");
 					fail++;
