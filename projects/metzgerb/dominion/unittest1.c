@@ -95,7 +95,7 @@ int main()
 	printf("TEST 2: Testing %s with various starting action counts\n\n", TEST_CARD_NAME);
 
 	//test with different number of starting actions
-	for (int a = 1; a < 30; h += 3)
+	for (int a = 1; a < 30; a += 3)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
