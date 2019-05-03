@@ -35,17 +35,20 @@ int main()
 	
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
+	
+	// copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
 
 	//test with different sized hands
 	for (int h = 1; h < 60; h += 7)
 	{
-		// copy the game state to a test case
-		memcpy(&testG, &G, sizeof(struct gameState));
-		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
-
 		//change handcount to different value
 		G.handCount[thisPlayer] = h;
+		testG.handCount[thisPlayer] = h;
 
+		//run effect to test
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+		
 		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
 		
 		//set expected change values
@@ -53,7 +56,7 @@ int main()
 		discarded = 1;
 
 		//print results
-		printf("Test hand count = %d, expected = %d: ", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 
 		//test oracle to check if test passed or failed
 		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
@@ -69,7 +72,7 @@ int main()
 
 		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
 		//print results
-		printf("Test hand count = %d, expected = %d: ", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+		printf("handcount = %d -- Test action count -- actual = %d, expected = %d: ", h, testG.numActions, G.numActions + actionChange);
 
 		//test oracle to check if test passed or failed
 		if (testG.numActions != G.numActions + actionChange)
