@@ -99,6 +99,7 @@ int main()
 			{
 				//(should discard sea_hag)
 				discarded = 1;
+			}
 			else
 			{
 				//(discard top card and sea_hag)
@@ -119,7 +120,7 @@ int main()
 				printf("PASS\n");
 				pass++;
 			}
-			}
+		}
 
 		printf("\n");
 	}
@@ -187,6 +188,7 @@ int main()
 			{
 				//(should discard sea_hag)
 				discarded = 1;
+			}
 			else
 			{
 				//(discard top card and sea_hag)
