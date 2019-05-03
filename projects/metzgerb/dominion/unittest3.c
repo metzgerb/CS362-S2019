@@ -94,46 +94,32 @@ int main()
 		for (int p = 0; p < numPlayers; p++)
 		{
 
-			//test oracle to check if test passed or failed
+			//set discard value
 			if (p == thisPlayer)
 			{
-				//set expected change values (should discard sea_hag)
+				//(should discard sea_hag)
 				discarded = 1;
-								
-				//print results
-				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p]);
-				
-				if (testG.discardCount[p] != G.discardCount[p])
-				{
-					printf("FAIL\n");
-					fail++;
-				}
-				else
-				{
-					printf("PASS\n");
-					pass++;
-				}
+			else
+			{
+				//(discard top card and sea_hag)
+				discarded = 2;
+			}
+
+			//print results
+			printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
+
+			//test oracle to check if test passed or failed
+			if (testG.discardCount[p] != G.discardCount[p] + discarded)
+			{
+				printf("FAIL\n");
+				fail++;
 			}
 			else
 			{
-				//set expected change values (should discard sea_hag and top card of deck)
-				discarded = 2;
-				
-				//print results
-				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
-
-				if (testG.discardCount[p] != G.discardCount[p] + discarded)
-				{
-					printf("FAIL\n");
-					fail++;
-				}
-				else
-				{
-					printf("PASS\n");
-					pass++;
-				}
+				printf("PASS\n");
+				pass++;
 			}
-		}
+			}
 
 		printf("\n");
 	}
@@ -196,44 +182,30 @@ int main()
 		for (int p = 0; p < numPlayers; p++)
 		{
 
-			//test oracle to check if test passed or failed
+			//set discard value
 			if (p == thisPlayer)
 			{
-				//set expected change values (should discard sea_hag)
+				//(should discard sea_hag)
 				discarded = 1;
+			else
+			{
+				//(discard top card and sea_hag)
+				discarded = 2;
+			}
 
-				//print results
-				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p]);
-
-				if (testG.discardCount[p] != G.discardCount[p])
-				{
-					printf("FAIL\n");
-					fail++;
-				}
-				else
-				{
-					printf("PASS\n");
-					pass++;
-				}
+			//print results
+			printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
+			
+			//test oracle to check if test passed or failed
+			if (testG.discardCount[p] != G.discardCount[p] + discarded)
+			{
+				printf("FAIL\n");
+				fail++;
 			}
 			else
 			{
-				//set expected change values (discard top card and sea_hag)
-				discarded = 2;
-
-				//print results
-				printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
-
-				if (testG.discardCount[p] != G.discardCount[p] + discarded)
-				{
-					printf("FAIL\n");
-					fail++;
-				}
-				else
-				{
-					printf("PASS\n");
-					pass++;
-				}
+				printf("PASS\n");
+				pass++;
 			}
 		}
 
