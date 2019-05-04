@@ -32,7 +32,7 @@ unittestresults: dominion.o rngs.o unittest1.c unittest2.c unittest3.c unittest4
 	gcc -o unittest4 dominion.o rngs.o unittest4.c $(CFLAGS)
 	./unittest4 >> unittestresults.out
 	
-	echo "\nResult for running card tests:\n" >> unittestresults.out
+	echo -e "\nResult for running card tests:\n" >> unittestresults.out
 	
 	echo -e "\n--------------------cardtest1.c:\n" >> unittestresults.out
 	gcc -o cardtest1 dominion.o rngs.o cardtest1.c $(CFLAGS)
