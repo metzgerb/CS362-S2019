@@ -6,7 +6,7 @@
 char inputChar()
 {
     // TODO: rewrite this function
-    //min ascii value = 32; max ascii value = 125 (range 93)
+	//min ascii value = 32; max ascii value = 125
 	//formula for random in range = random mod (upper-lower+1) + lower
 	return (rand() % (125 -32 + 1)) + 32;
 }
@@ -15,7 +15,7 @@ char *inputString()
 {
     // TODO: rewrite this function
 	//declare string
-	char[6] s;
+	char s[6];
 
 	//set string to null
 	memset(s, '\0', sizeof(s));
@@ -23,8 +23,8 @@ char *inputString()
 	//loop through string and assign random lowercase chars (leave one null character)
 	for (int i = 0; i < 5; i++)
 	{
-		//assign lowercase char (a=97 z=122)
-		s[i] = (rand() % (122 - 97 + 1)) + 97;
+		//assign lowercase char (e=101 t=116)
+		s[i] = (rand() % (116 - 101 + 1)) + 101;
 	}
 
     return s;
