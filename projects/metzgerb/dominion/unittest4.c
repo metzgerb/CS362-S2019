@@ -41,7 +41,7 @@ int main()
 	printf("TEST 1: Testing %s with various starting hand counts and no cards returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 1; h < 60; h += 5)
+	for (int h = 3; h < 60; h += 5)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
@@ -65,14 +65,13 @@ int main()
 		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
 
 		//set expected change values
-		newCards = 0;
 		discarded = 1;
 
 		//print results
-		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h - choice2 - discarded);
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != h + newCards - discarded)
+		if (testG.handCount[thisPlayer] != h - choice2 - discarded)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -130,7 +129,7 @@ int main()
 	printf("TEST 2: Testing %s with various starting hand counts and 1 card returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 1; h < 60; h += 5)
+	for (int h = 3; h < 60; h += 5)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
@@ -154,14 +153,13 @@ int main()
 		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
 
 		//set expected change values
-		newCards = 0;
 		discarded = 1;
 
 		//print results
-		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h - choice2 - discarded);
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != h + newCards - discarded)
+		if (testG.handCount[thisPlayer] != h - choice2 - discarded)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -219,7 +217,7 @@ int main()
 	printf("TEST 3: Testing %s with various starting hand counts and 2 cards returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 1; h < 60; h += 5)
+	for (int h = 3; h < 60; h += 5)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
@@ -243,14 +241,13 @@ int main()
 		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
 
 		//set expected change values
-		newCards = 0;
 		discarded = 1;
 
 		//print results
-		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h - choice2 - discarded);
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != h + newCards - discarded)
+		if (testG.handCount[thisPlayer] != h - choice2 - discarded)
 		{
 			printf("FAIL\n");
 			fail++;
