@@ -291,8 +291,15 @@ int main()
 		for (int p = 0; p < numPlayers; p++)
 		{
 
-			//set discard value (current player discards ambassador, other players gain a card to discard pile)
-			discarded = 1;
+			//set discard value (other players gain a card to discard pile)
+			if (p == thisPlayer)
+			{
+				discarded = 0;
+			}
+			else
+			{
+				discarded = 1;
+			}
 
 			//print results
 			printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
