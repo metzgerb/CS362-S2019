@@ -86,10 +86,10 @@ int main()
 		// ----------- POSITIVE TEST: supply pile is not changed --------------
 
 		//print results (beginning supply count + choice2 (returned count) - number of players - 1
-		printf("handcount = %d -- Test supply count -- actual = %d, expected = %d: ", h, testG.supplyCount[testG.hand[thisPlayer][choice1]], G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers - 1);
+		printf("handcount = %d -- Test supply count -- actual = %d, expected = %d: ", h, testG.supplyCount[testG.hand[thisPlayer][choice1]], G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers + 1);
 
 		//test oracle to check if test passed or failed
-		if (testG.supplyCount[testG.hand[thisPlayer][choice1]] != G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers - 1)
+		if (testG.supplyCount[testG.hand[thisPlayer][choice1]] != G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers + 1)
 		{
 			printf("FAIL\n");
 			fail++;
