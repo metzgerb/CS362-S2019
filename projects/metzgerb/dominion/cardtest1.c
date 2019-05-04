@@ -25,7 +25,6 @@ int main()
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
 	int newCards = 3;
 	int played = 1;
-	int actionChange = 0;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
 	int numPlayers = 2;
