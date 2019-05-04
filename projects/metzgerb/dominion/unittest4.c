@@ -38,7 +38,7 @@ int main()
 	initializeGame(numPlayers, k, seed, &G);
 
 	//print results
-	printf("TEST 1: Testing %s with various starting hand counts\n\n", TEST_CARD_NAME);
+	printf("TEST 1: Testing %s with various starting hand counts and no cards returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
 	for (int h = 1; h < 60; h += 5)
@@ -57,6 +57,184 @@ int main()
 
 		
 		choice2 = 0; //choose to return 0 cards
+		choice1 = 1; //choose a curse
+
+		//run effect to test
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
+
+		//set expected change values
+		newCards = 0;
+		discarded = 1;
+
+		//print results
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.handCount[thisPlayer] != h + newCards - discarded)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: supply pile is not changed --------------
+
+		//print results (beginning supply count + choice2 (returned count) - number of players - 1
+		printf("handcount = %d -- Test supply count -- actual = %d, expected = %d: ", h, testG.supplyCount[testG.hand[thisPlayer][choice1]], G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers + 1);
+
+		//test oracle to check if test passed or failed
+		if (testG.supplyCount[testG.hand[thisPlayer][choice1]] != G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers + 1)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: other players gain a card --------------
+		for (int p = 0; p < numPlayers; p++)
+		{
+
+			//set discard value (current player discards ambassador, other players gain a card to discard pile)
+			discarded = 1;
+
+			//print results
+			printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
+
+			//test oracle to check if test passed or failed
+			if (testG.discardCount[p] != G.discardCount[p] + discarded)
+			{
+				printf("FAIL\n");
+				fail++;
+			}
+			else
+			{
+				printf("PASS\n");
+				pass++;
+			}
+		}
+
+		printf("\n");
+	}
+
+	//print results
+	printf("TEST 2: Testing %s with various starting hand counts and 1 card returned to supply\n\n", TEST_CARD_NAME);
+
+	//test with different sized hands
+	for (int h = 1; h < 60; h += 5)
+	{
+		// copy the game state to a test case
+		memcpy(&testG, &G, sizeof(struct gameState));
+
+		//change handcount to different value
+		testG.handCount[thisPlayer] = h;
+
+		//fill test hand with curses
+		for (int i = 0; i < testG.handCount[thisPlayer]; i++)
+		{
+			testG.hand[thisPlayer][i] = curse;
+		}
+
+
+		choice2 = 1; //choose to return 1 card
+		choice1 = 1; //choose a curse
+
+		//run effect to test
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
+
+		//set expected change values
+		newCards = 0;
+		discarded = 1;
+
+		//print results
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.handCount[thisPlayer] != h + newCards - discarded)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: supply pile is not changed --------------
+
+		//print results (beginning supply count + choice2 (returned count) - number of players - 1
+		printf("handcount = %d -- Test supply count -- actual = %d, expected = %d: ", h, testG.supplyCount[testG.hand[thisPlayer][choice1]], G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers + 1);
+
+		//test oracle to check if test passed or failed
+		if (testG.supplyCount[testG.hand[thisPlayer][choice1]] != G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers + 1)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: other players gain a card --------------
+		for (int p = 0; p < numPlayers; p++)
+		{
+
+			//set discard value (current player discards ambassador, other players gain a card to discard pile)
+			discarded = 1;
+
+			//print results
+			printf("player = %d -- Test discard count -- actual = %d, expected = %d: ", p, testG.discardCount[p], G.discardCount[p] + discarded);
+
+			//test oracle to check if test passed or failed
+			if (testG.discardCount[p] != G.discardCount[p] + discarded)
+			{
+				printf("FAIL\n");
+				fail++;
+			}
+			else
+			{
+				printf("PASS\n");
+				pass++;
+			}
+		}
+
+		printf("\n");
+	}
+
+	//print results
+	printf("TEST 3: Testing %s with various starting hand counts and 2 cards returned to supply\n\n", TEST_CARD_NAME);
+
+	//test with different sized hands
+	for (int h = 1; h < 60; h += 5)
+	{
+		// copy the game state to a test case
+		memcpy(&testG, &G, sizeof(struct gameState));
+
+		//change handcount to different value
+		testG.handCount[thisPlayer] = h;
+
+		//fill test hand with curses
+		for (int i = 0; i < testG.handCount[thisPlayer]; i++)
+		{
+			testG.hand[thisPlayer][i] = curse;
+		}
+
+
+		choice2 = 2; //choose to return 2 cards
 		choice1 = 1; //choose a curse
 
 		//run effect to test
