@@ -25,7 +25,7 @@ int main()
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
 	int newCards = 0;
 	int discarded = 1;
-	int actionChange = 0;
+	//int actionChange = 0;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
 	int numPlayers = 2;
@@ -86,10 +86,10 @@ int main()
 		// ----------- POSITIVE TEST: supply pile is not changed --------------
 
 		//print results (beginning supply count + choice2 (returned count) - number of players - 1
-		printf("handcount = %d -- Test supply count -- actual = %d, expected = %d: ", h, testG.supplyCount[testG.hand[thisPlayer][choice1]], G.supplysupplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers - 1);
+		printf("handcount = %d -- Test supply count -- actual = %d, expected = %d: ", h, testG.supplyCount[testG.hand[thisPlayer][choice1]], G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers - 1);
 
 		//test oracle to check if test passed or failed
-		if (testG.supplyCount[testG.hand[thisPlayer][choice1]] != G.supplysupplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers - 1)
+		if (testG.supplyCount[testG.hand[thisPlayer][choice1]] != G.supplyCount[testG.hand[thisPlayer][choice1]] + choice2 - numPlayers - 1)
 		{
 			printf("FAIL\n");
 			fail++;
