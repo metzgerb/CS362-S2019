@@ -41,7 +41,7 @@ int main()
 	printf("TEST 1: Testing %s with various starting hand counts and no cards returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 3; h < 60; h += 5)
+	for (int h = 5; h < 60; h += 5)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
@@ -129,7 +129,7 @@ int main()
 	printf("TEST 2: Testing %s with various starting hand counts and 1 card returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 3; h < 60; h += 5)
+	for (int h = 5; h < 60; h += 5)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
@@ -217,7 +217,7 @@ int main()
 	printf("TEST 3: Testing %s with various starting hand counts and 2 cards returned to supply\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 3; h < 60; h += 5)
+	for (int h = 5; h < 60; h += 5)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
