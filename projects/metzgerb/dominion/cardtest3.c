@@ -1,8 +1,8 @@
 /******************************************************************************
 * Program Name: cardtest3.c
-* Description: Runs tests on the smithy card to validate the
+* Description: Runs tests on the council room card to validate the
 *	number of cards drawn during the function is correct and the number of
-*	actions earned is correct (Positive tests)
+*	buy earned is correct (Positive tests)
 * Author: Brian Metzger (metzgerb@oregonstate.edu)
 * Created: 2019-05-04
 ******************************************************************************/
@@ -15,17 +15,17 @@
 #include "rngs.h"
 #include <stdlib.h>
 
-#define TEST_CARD smithy
-#define TEST_CARD_NAME "smithy"
+#define TEST_CARD council_room
+#define TEST_CARD_NAME "council_room"
 
 void testSummary(int pass, int fail);
 
 int main()
 {
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
-	int newCards = 0;
+	int newCards = 4;
 	int discarded = 1;
-	int actionChange = 0;
+	int buyChange = 1;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
 	int numPlayers = 2;
@@ -54,10 +54,6 @@ int main()
 
 		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
 
-		//set expected change values
-		newCards = 3;
-		discarded = 1;
-
 		//print results
 		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
 
@@ -75,10 +71,10 @@ int main()
 
 		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
 		//print results
-		printf("handcount = %d -- Test action count -- actual = %d, expected = %d: ", h, testG.numActions, G.numActions + actionChange);
+		printf("handcount = %d -- Test action count -- actual = %d, expected = %d: ", h, testG.numBuys, G.numBuys + buyChange);
 
 		//test oracle to check if test passed or failed
-		if (testG.numActions != G.numActions + actionChange)
+		if (testG.numBuys != G.numBuys + buyChange)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -109,10 +105,6 @@ int main()
 
 		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
 
-		//set expected change values
-		newCards = 1;
-		discarded = 1;
-
 		//print results
 		printf("action count = %d -- Test hand count -- actual = %d, expected = %d: ", a, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 
@@ -130,10 +122,10 @@ int main()
 
 		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
 		//print results
-		printf("action count = %d -- Test action count -- actual = %d, expected = %d: ", a, testG.numActions, a + actionChange);
+		printf("action count = %d -- Test buy count -- actual = %d, expected = %d: ", a, testG.numBuys, G.numBuys + buyChange);
 
 		//test oracle to check if test passed or failed
-		if (testG.numActions != a + actionChange)
+		if (testG.numBuys != G.numBuys + buyChange)
 		{
 			printf("FAIL\n");
 			fail++;
