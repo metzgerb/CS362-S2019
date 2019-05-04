@@ -97,13 +97,13 @@ int main()
 			//set discard value
 			if (p == thisPlayer)
 			{
-				//(should discard sea_hag)
-				discarded = 1;
+				//(shouldn't discard anything)
+				discarded = 0;
 			}
 			else
 			{
-				//(discard top card and sea_hag)
-				discarded = 2;
+				//(discard top card)
+				discarded = 1;
 			}
 
 			//print results
@@ -186,13 +186,13 @@ int main()
 			//set discard value
 			if (p == thisPlayer)
 			{
-				//(should discard sea_hag)
-				discarded = 1;
+				//(shouldn't discard anything)
+				discarded = 0;
 			}
 			else
 			{
-				//(discard top card and sea_hag)
-				discarded = 2;
+				//(discard top card)
+				discarded = 1;
 			}
 
 			//print results
