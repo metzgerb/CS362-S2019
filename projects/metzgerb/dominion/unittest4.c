@@ -1,5 +1,5 @@
 /******************************************************************************
-* Program Name: unittest1.c
+* Program Name: unittest4.c
 * Description: Runs tests on the ambassador_effect function to validate the
 *	number of cards drawn during the function is correct and the number of
 *	card returned to Supply is correct (Positive tests)

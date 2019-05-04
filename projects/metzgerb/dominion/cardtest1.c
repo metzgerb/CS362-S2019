@@ -1,9 +1,10 @@
 /******************************************************************************
-* Program Name: unittest1.c
-* Description: Runs tests on the great_hall_effect function to validate the
-*	number of cards drawn during the function is correct (checking gamestate)
+* Program Name: cardtest1.c
+* Description: Runs tests on the smithy card to validate the
+*	number of cards drawn during the function is correct and the number of
+*	actions earned is correct (Positive tests)
 * Author: Brian Metzger (metzgerb@oregonstate.edu)
-* Created: 2019-04-28
+* Created: 2019-05-04
 ******************************************************************************/
 
 #include "dominion.h"
@@ -14,18 +15,17 @@
 #include "rngs.h"
 #include <stdlib.h>
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 1
-#define TEST_CARD great_hall
-#define TEST_CARD_NAME "great_hall"
+#define TEST_CARD smithy
+#define TEST_CARD_NAME "smithy"
 
 void testSummary(int pass, int fail);
 
 int main()
 {
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
-	int newCards = 0;
+	int newCards = 3;
 	int discarded = 1;
+	int actionChange = 0;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
 	int numPlayers = 2;
@@ -37,31 +37,110 @@ int main()
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
 
-	// ----------- TEST 1: count of cards in hand is unchanged --------------
-	printf("TEST 1: choice1 = 1 = +2 cards\n");
+	//print results
+	printf("TEST 1: Testing %s with various starting hand counts\n\n", TEST_CARD_NAME);
 
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-	cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//test with different sized hands
+	for (int h = 1; h < 60; h += 6)
+	{
+		// copy the game state to a test case
+		memcpy(&testG, &G, sizeof(struct gameState));
 
-	//set expected change values
-	newCards = 1;
-	discarded = 1;
+		//change handcount to different value
+		testG.handCount[thisPlayer] = h;
+
+		//run effect to test
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+		// ----------- POSITIVE TEST: count of discard cards --------------
+
+		//print results
+		printf("handcount = %d -- Test discard count -- actual = %d, expected = %d: ", h, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] - discarded)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
+		//print results
+		printf("handcount = %d -- Test deck count -- actual = %d, expected = %d: ", h, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards);
+
+		//test oracle to check if test passed or failed
+		if (testG.deckCount[thisPlayer] != G.deckCount[thisPlayer] - newCards)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		printf("\n");
+	}
 
 	//print results
-	printf("hand count = %d, expected = %d\n\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
-	printf("TEST 1 RESULTS: ");
-	if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - discarded)
+	printf("TEST 2: Testing %s with various starting action counts\n\n", TEST_CARD_NAME);
+
+	//test with different number of starting actions
+	for (int a = 1; a < 35; a += 4)
 	{
-		printf("FAIL\n");
-		fail++;
-	}
-	else
-	{
-		printf("PASS\n");
-		pass++;
+		// copy the game state to a test case
+		memcpy(&testG, &G, sizeof(struct gameState));
+
+		//change handcount to different value
+		testG.numActions = a;
+
+		//run effect to test
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+		// ----------- POSITIVE TEST: count of discard cards --------------
+
+		//print results
+		printf("actioncount = %d -- Test discard count -- actual = %d, expected = %d: ", a, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] - discarded);
+
+		//test oracle to check if test passed or failed
+		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] - discarded)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
+		//print results
+		printf("actioncount = %d -- Test deck count -- actual = %d, expected = %d: ", a, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards);
+
+		//test oracle to check if test passed or failed
+		if (testG.deckCount[thisPlayer] != G.deckCount[thisPlayer] - newCards)
+		{
+			printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			printf("PASS\n");
+			pass++;
+		}
+
+		printf("\n");
 	}
 
+
+	//output test results
 	testSummary(pass, fail);
 
 	return 0;

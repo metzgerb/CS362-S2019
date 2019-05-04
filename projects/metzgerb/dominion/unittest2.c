@@ -1,5 +1,5 @@
 /******************************************************************************
-* Program Name: unittest1.c
+* Program Name: unittest2.c
 * Description: Runs tests on the smithy_effect function to validate the
 *	number of cards drawn during the function is correct and the number of
 *	actions earned is correct (Positive tests)
