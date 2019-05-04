@@ -1311,7 +1311,8 @@ int ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameSt
 
 	if (choice1 == handPos)
 	{
-		return -1;
+		//return -1;
+		return -2;
 	}
 
 	for (int i = 0; i < state->handCount[currentPlayer]; i++)
@@ -1323,7 +1324,8 @@ int ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameSt
 	}
 	if (j < choice2)
 	{
-		return -1;
+		//return -1;
+		return -3;
 	}
 
 	if (DEBUG)
