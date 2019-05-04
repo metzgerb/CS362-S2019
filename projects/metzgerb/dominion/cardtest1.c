@@ -1,8 +1,8 @@
 /******************************************************************************
 * Program Name: cardtest1.c
 * Description: Runs tests on the smithy card to validate the
-*	number of cards drawn during the function is correct and the number of
-*	actions earned is correct (Positive tests)
+*	number of cards played during the function is correct and the remaining 
+*	deck count is correct (Positive tests)
 * Author: Brian Metzger (metzgerb@oregonstate.edu)
 * Created: 2019-05-04
 ******************************************************************************/
