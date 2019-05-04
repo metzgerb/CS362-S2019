@@ -24,7 +24,7 @@ int main()
 {
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
 	int newCards = 3;
-	int discarded = 1;
+	int played = 1;
 	int actionChange = 0;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
@@ -52,13 +52,13 @@ int main()
 		//run effect to test
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-		// ----------- POSITIVE TEST: count of discard cards --------------
+		// ----------- POSITIVE TEST: count of played cards --------------
 
 		//print results
-		printf("handcount = %d -- Test discard count -- actual = %d, expected = %d: ", h, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + discarded);
+		printf("handcount = %d -- Test played count -- actual = %d, expected = %d: ", h, testG.playedCardCount, G.playedCardCount + played);
 
 		//test oracle to check if test passed or failed
-		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] + discarded)
+		if (testG.playedCardCount != G.playedCardCount + played)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -69,7 +69,7 @@ int main()
 			pass++;
 		}
 
-		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
+		// ----------- POSITIVE TEST: deck count is decreased by 3 --------------
 		//print results
 		printf("handcount = %d -- Test deck count -- actual = %d, expected = %d: ", h, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards);
 
@@ -103,13 +103,13 @@ int main()
 		//run effect to test
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-		// ----------- POSITIVE TEST: count of discard cards --------------
+		// ----------- POSITIVE TEST: count of played cards --------------
 
 		//print results
-		printf("actioncount = %d -- Test discard count -- actual = %d, expected = %d: ", a, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + discarded);
+		printf("actioncount = %d -- Test played count -- actual = %d, expected = %d: ", a, testG.playedCardCount, G.playedCardCount + played);
 
 		//test oracle to check if test passed or failed
-		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] - discarded)
+		if (testG.playedCardCount != G.playedCardCount + played)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -120,9 +120,9 @@ int main()
 			pass++;
 		}
 
-		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
+		// ----------- POSITIVE TEST: deck count is decreased by 3 --------------
 		//print results
-		printf("actioncount = %d -- Test deck count -- actual = %d, expected = %d: ", a, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] + newCards);
+		printf("actioncount = %d -- Test deck count -- actual = %d, expected = %d: ", a, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards);
 
 		//test oracle to check if test passed or failed
 		if (testG.deckCount[thisPlayer] != G.deckCount[thisPlayer] - newCards)
