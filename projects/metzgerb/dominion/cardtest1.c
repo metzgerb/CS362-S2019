@@ -55,10 +55,10 @@ int main()
 		// ----------- POSITIVE TEST: count of discard cards --------------
 
 		//print results
-		printf("handcount = %d -- Test discard count -- actual = %d, expected = %d: ", h, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] - discarded);
+		printf("handcount = %d -- Test discard count -- actual = %d, expected = %d: ", h, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + discarded);
 
 		//test oracle to check if test passed or failed
-		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] - discarded)
+		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] + discarded)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -106,7 +106,7 @@ int main()
 		// ----------- POSITIVE TEST: count of discard cards --------------
 
 		//print results
-		printf("actioncount = %d -- Test discard count -- actual = %d, expected = %d: ", a, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] - discarded);
+		printf("actioncount = %d -- Test discard count -- actual = %d, expected = %d: ", a, testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + discarded);
 
 		//test oracle to check if test passed or failed
 		if (testG.discardCount[thisPlayer] != G.discardCount[thisPlayer] - discarded)
@@ -122,7 +122,7 @@ int main()
 
 		// ----------- POSITIVE TEST: count of actions is increased by 1 --------------
 		//print results
-		printf("actioncount = %d -- Test deck count -- actual = %d, expected = %d: ", a, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards);
+		printf("actioncount = %d -- Test deck count -- actual = %d, expected = %d: ", a, testG.deckCount[thisPlayer], G.deckCount[thisPlayer] + newCards);
 
 		//test oracle to check if test passed or failed
 		if (testG.deckCount[thisPlayer] != G.deckCount[thisPlayer] - newCards)
