@@ -71,10 +71,10 @@ int main()
 
 		// ----------- POSITIVE TEST: hand count is increased by 2 --------------
 		//print results
-		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards);
+		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - played);
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards)
+		if (testG.handCount[thisPlayer] != h + newCards - played)
 		{
 			printf("FAIL\n");
 			fail++;
@@ -122,10 +122,10 @@ int main()
 
 		// ----------- POSITIVE TEST: hand count is increased by 2 --------------
 		//print results
-		printf("actioncount = %d -- Test hand count -- actual = %d, expected = %d: ", a, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards);
+		printf("actioncount = %d -- Test hand count -- actual = %d, expected = %d: ", a, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - played);
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] - newCards)
+		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - played)
 		{
 			printf("FAIL\n");
 			fail++;
