@@ -1316,7 +1316,7 @@ int ambassador_effect(int choice1, int choice2, int currentPlayer, struct gameSt
 
 	for (int i = 0; i < state->handCount[currentPlayer]; i++)
 	{
-		printf("i=%d, handpos=%d, choice=%d, currentcard=%d", i,handPos, choice1, state->hand[currentPlayer][i])
+		printf("i=%d, handpos=%d, choice=%d, currentcard=%d", i, handPos, choice1, state->hand[currentPlayer][i]);
 		if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
 		{
 			j++;
