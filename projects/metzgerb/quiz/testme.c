@@ -6,13 +6,28 @@
 char inputChar()
 {
     // TODO: rewrite this function
-    return ' ';
+    //min ascii value = 32; max ascii value = 125 (range 93)
+	//formula for random in range = random mod (upper-lower+1) + lower
+	return (rand() % (125 -32 + 1)) + 32;
 }
 
 char *inputString()
 {
     // TODO: rewrite this function
-    return "";
+	//declare string
+	char[6] s;
+
+	//set string to null
+	memset(s, '\0', sizeof(s));
+
+	//loop through string and assign random lowercase chars (leave one null character)
+	for (int i = 0; i < 5; i++)
+	{
+		//assign lowercase char (a=97 z=122)
+		s[i] = (rand() % (122 - 97 + 1)) + 97;
+	}
+
+    return s;
 }
 
 void testme()
