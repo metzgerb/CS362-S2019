@@ -58,7 +58,7 @@ int main()
 		choice1 = 1; //choose a curse
 
 		//run effect to test
-		printf("%d\n", cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus));
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
 
@@ -153,7 +153,7 @@ int main()
 		choice1 = 1; //choose a curse
 
 		//run effect to test
-		printf("%d\n", cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus));
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
 
@@ -248,7 +248,7 @@ int main()
 		choice1 = 1; //choose a curse
 
 		//run effect to test
-		printf("%d\n", cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus));
+		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 		// ----------- POSITIVE TEST: count of cards in hand is changed --------------
 
