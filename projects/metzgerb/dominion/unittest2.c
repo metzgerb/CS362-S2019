@@ -23,7 +23,7 @@ void testSummary(int pass, int fail);
 int main()
 {
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
-	int newCards = 0;
+	int newCards = 3;
 	int discarded = 1;
 	int actionChange = 0;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
@@ -53,10 +53,6 @@ int main()
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
-
-		//set expected change values
-		newCards = 3;
-		discarded = 1;
 
 		//print results
 		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - discarded);
@@ -108,10 +104,6 @@ int main()
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
 		// ----------- POSITIVE TEST: count of cards in hand is unchanged --------------
-
-		//set expected change values
-		newCards = 1;
-		discarded = 1;
 
 		//print results
 		printf("action count = %d -- Test hand count -- actual = %d, expected = %d: ", a, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
