@@ -1,10 +1,10 @@
 /******************************************************************************
-* Program Name: cardtest2.c
-* Description: Runs tests on the adventurer card to validate the
-*	number of cards played during the function is correct and the hand count
-*	is correct (Positive tests)
+* Program Name: randomtestadventurer.c
+* Description: Runs tests on the adventurer card using random inputs to
+*	validate the number of cards drawn during the function is correct and the
+*	number of buy earned is correct (random testing)
 * Author: Brian Metzger (metzgerb@oregonstate.edu)
-* Created: 2019-05-04
+* Created: 2019-05-13
 ******************************************************************************/
 
 #include "dominion.h"
@@ -37,50 +37,61 @@ int main()
 	initializeGame(numPlayers, k, seed, &G);
 
 	//print results
-	printf("TEST 1: Testing %s with various starting hand counts\n\n", TEST_CARD_NAME);
+	printf("TEST: Testing %s with random deck counts\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int h = 1; h < 60; h += 6)
+	for (int i = 0; i < 100; i++)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
 
-		//change handcount to different value
-		testG.handCount[thisPlayer] = h;
+		//randomize deck size by adding cards
+		int deckIncrease = rand() % (MAX_DECK - testG.deckCount[thisPlayer]);
+		for (int j = 0; j < deckIncrease; j++)
+		{
+			//pick random card from supply
+			int supplyCard = rand() % 10;
+
+			//gain random card to deck
+			gainCard(k[supplyCard], &testG, 1, thisPlayer);
+		}
+
+		//store deck count
+		int d = testG.deckCount[thisPlayer];
 
 		//run effect to test
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-		// ----------- POSITIVE TEST: count of played cards --------------
-
-		//print results
-		printf("handcount = %d -- Test played count -- actual = %d, expected = %d: ", h, testG.playedCardCount, G.playedCardCount + played);
+		// ----------- TEST: count of played cards --------------
 
 		//test oracle to check if test passed or failed
 		if (testG.playedCardCount != G.playedCardCount + played)
 		{
-			printf("FAIL\n");
+			//print results only if failed
+			printf("deckcount = %d -- Test played count -- actual = %d, expected = %d: FAIL\n", d, testG.playedCardCount, G.playedCardCount + played);
+			//printf("FAIL\n");
 			fail++;
 		}
 		else
 		{
-			printf("PASS\n");
+			//printf("PASS\n");
 			pass++;
 		}
 
 		// ----------- POSITIVE TEST: hand count is increased by 2 --------------
-		//print results
-		printf("handcount = %d -- Test hand count -- actual = %d, expected = %d: ", h, testG.handCount[thisPlayer], h + newCards - played);
+
 
 		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != h + newCards - played)
+		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - played)
 		{
-			printf("FAIL\n");
+			//print results only if failed
+			printf("deckcount = %d -- Test hand count -- actual = %d, expected = %d: FAIL\n", d, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - played);
+			//printf("FAIL\n");
 			fail++;
 		}
 		else
 		{
-			printf("PASS\n");
+			//printf("PASS\n");
 			pass++;
 		}
 
@@ -88,7 +99,7 @@ int main()
 	}
 
 	//print results
-	printf("TEST 2: Testing %s with various starting action counts\n\n", TEST_CARD_NAME);
+	/*printf("TEST 2: Testing %s with various starting action counts\n\n", TEST_CARD_NAME);
 
 	//test with different number of starting actions
 	for (int a = 1; a < 35; a += 4)
@@ -136,7 +147,7 @@ int main()
 		}
 
 		printf("\n");
-	}
+	}*/
 
 
 	//output test results
