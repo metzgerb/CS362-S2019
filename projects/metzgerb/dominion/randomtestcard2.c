@@ -45,15 +45,22 @@ int main()
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
 
+		//calculate maximum cards in supply for range of gaining cards
+		int sum = 0;
+		for (int a = 0; a < 27; a++)
+		{
+			sum += supplyCount(a, &testG);
+		}
+
 		//randomize deck size by adding cards
-		int deckIncrease = rand() % (MAX_DECK - testG.deckCount[thisPlayer]);
+		int deckIncrease = rand() % sum;
 		for (int j = 0; j < deckIncrease; j++)
 		{
 			//pick random card from supply
-			int supplyCard = rand() % 10;
+			int supplyCard = rand() % 27;
 
 			//gain random card to deck
-			gainCard(k[supplyCard], &testG, 1, thisPlayer);
+			gainCard(supplyCard, &testG, 1, thisPlayer);
 		}
 
 		//store deck count
@@ -62,7 +69,7 @@ int main()
 		//run effect to test
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-		// ----------- TEST: count of played cards --------------
+		// ----------- POSITIVE TEST: count of played cards --------------
 
 		//test oracle to check if test passed or failed
 		if (testG.playedCardCount != G.playedCardCount + played)
@@ -97,58 +104,6 @@ int main()
 
 		printf("\n");
 	}
-
-	//print results
-	/*printf("TEST 2: Testing %s with various starting action counts\n\n", TEST_CARD_NAME);
-
-	//test with different number of starting actions
-	for (int a = 1; a < 35; a += 4)
-	{
-		// copy the game state to a test case
-		memcpy(&testG, &G, sizeof(struct gameState));
-
-		//change handcount to different value
-		testG.numActions = a;
-
-		//run effect to test
-		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
-
-		// ----------- POSITIVE TEST: count of played cards --------------
-
-		//print results
-		printf("actioncount = %d -- Test played count -- actual = %d, expected = %d: ", a, testG.playedCardCount, G.playedCardCount + played);
-
-		//test oracle to check if test passed or failed
-		if (testG.playedCardCount != G.playedCardCount + played)
-		{
-			printf("FAIL\n");
-			fail++;
-		}
-		else
-		{
-			printf("PASS\n");
-			pass++;
-		}
-
-		// ----------- POSITIVE TEST: hand count is increased by 2 --------------
-		//print results
-		printf("actioncount = %d -- Test hand count -- actual = %d, expected = %d: ", a, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - played);
-
-		//test oracle to check if test passed or failed
-		if (testG.handCount[thisPlayer] != G.handCount[thisPlayer] + newCards - played)
-		{
-			printf("FAIL\n");
-			fail++;
-		}
-		else
-		{
-			printf("PASS\n");
-			pass++;
-		}
-
-		printf("\n");
-	}*/
-
 
 	//output test results
 	testSummary(pass, fail);
