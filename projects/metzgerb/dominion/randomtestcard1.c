@@ -15,15 +15,15 @@
 #include "rngs.h"
 #include <stdlib.h>
 
-#define TEST_CARD adventurer
-#define TEST_CARD_NAME "adventurer"
+#define TEST_CARD great_hall
+#define TEST_CARD_NAME "great_hall"
 
 void testSummary(int pass, int fail);
 
 int main()
 {
 	int pass = 0, fail = 0; //keeps track of the number of tests that passed and failed
-	int newCards = 2;
+	int newCards = 1;
 	int played = 1;
 	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
 	int seed = 1000;
@@ -69,7 +69,7 @@ int main()
 		//run effect to test
 		cardEffect(TEST_CARD, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-		// ----------- POSITIVE TEST: count of played cards --------------
+		// ----------- POSITIVE TEST: count of played cards = 1 --------------
 
 		//test oracle to check if test passed or failed
 		if (testG.playedCardCount != G.playedCardCount + played)
@@ -85,7 +85,7 @@ int main()
 			pass++;
 		}
 
-		// ----------- POSITIVE TEST: hand count is increased by 2 --------------
+		// ----------- POSITIVE TEST: hand count is unchanged --------------
 
 
 		//test oracle to check if test passed or failed
@@ -102,13 +102,13 @@ int main()
 			pass++;
 		}
 
-		// ----------- POSITIVE TEST: numActions is decreased by 1 --------------
+		// ----------- POSITIVE TEST: numActions is unchanged --------------
 
 		//test oracle to check if test passed or failed
-		if (testG.numActions != G.numActions - 1)
+		if (testG.numActions != G.numActions)
 		{
 			//print results only if failed
-			printf("deckcount = %d -- Test actions -- actual = %d, expected = %d: FAIL\n", d, testG.numActions, G.numActions - 1);
+			printf("deckcount = %d -- Test actions -- actual = %d, expected = %d: FAIL\n", d, testG.numActions, G.numActions);
 			//printf("FAIL\n");
 			fail++;
 		}
