@@ -40,7 +40,7 @@ int main()
 	printf("TEST: Testing %s with random deck counts\n\n", TEST_CARD_NAME);
 
 	//test with different sized hands
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 500; i++)
 	{
 		// copy the game state to a test case
 		memcpy(&testG, &G, sizeof(struct gameState));
@@ -93,6 +93,54 @@ int main()
 		{
 			//print results only if failed
 			printf("deckcount = %d -- Test hand count -- actual = %d, expected = %d: FAIL\n", d, testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - played);
+			//printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			//printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: numActions is decreased by 1 --------------
+
+		//test oracle to check if test passed or failed
+		if (testG.numActions != G.numActions - 1)
+		{
+			//print results only if failed
+			printf("deckcount = %d -- Test actions -- actual = %d, expected = %d: FAIL\n", d, testG.numActions, G.numActions - 1);
+			//printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			//printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: numBuys is unchanged --------------
+
+		//test oracle to check if test passed or failed
+		if (testG.numBuys != G.numBuys)
+		{
+			//print results only if failed
+			printf("deckcount = %d -- Test Buys -- actual = %d, expected = %d: FAIL\n", d, testG.numBuys, G.numBuys);
+			//printf("FAIL\n");
+			fail++;
+		}
+		else
+		{
+			//printf("PASS\n");
+			pass++;
+		}
+
+		// ----------- POSITIVE TEST: coins is unchanged --------------
+
+		//test oracle to check if test passed or failed
+		if (testG.coins != G.coins)
+		{
+			//print results only if failed
+			printf("deckcount = %d -- Test coins -- actual = %d, expected = %d: FAIL\n", d, testG.coins, G.coins);
 			//printf("FAIL\n");
 			fail++;
 		}
