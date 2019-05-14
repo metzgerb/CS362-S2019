@@ -49,7 +49,7 @@ int main()
 		int sum = 0;
 		for (int a = 0; a < 27; a++)
 		{
-			sum += supplyCount(a, testG);
+			sum += supplyCount(a, &testG);
 		}
 
 		//randomize deck size by adding cards
