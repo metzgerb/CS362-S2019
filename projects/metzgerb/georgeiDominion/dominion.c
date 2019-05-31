@@ -1084,7 +1084,7 @@ if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
 	{
 	  //if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
 		  //check if each card in hand is not the played card and is the same card as the revealed card
-		if (i != handPos && state->hand[currentPlayer][i] == choice1) //corrected code BDM 05-31-19
+		if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1]) //corrected code BDM 05-31-19
 	    {
 	      j++;
 	    }
