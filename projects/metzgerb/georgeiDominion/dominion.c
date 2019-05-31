@@ -1082,7 +1082,6 @@ if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
 
       for (i = 0; i < state->handCount[currentPlayer]; i++)
 	{
-	  //if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
 		  //check if each card in hand is not the played card and is the same card as the revealed card
 		if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1]) //corrected code BDM 05-31-19
 	    {
@@ -1254,7 +1253,6 @@ if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
 int smithyRefactor(struct gameState *state, int handPos, int currentPlayer)
 {      	//Bug added to have a +2 card action instead of +3
      	int i;
-      	//for (i = 0; i < 2; i++)
 		for (i = 0; i < 3; i++) //corrected code BDM 05-31-19
 	{
 		drawCard(currentPlayer, state);
@@ -1297,7 +1295,6 @@ int sea_hagRefactor(struct gameState *state, int handPos, int currentPlayer)
     int i;
 	 for (i = 0; i < state->numPlayers; i++){
 	//Refactor: changed if statement to execute if i == currentPlayer instead of i != currentPlayer
-	//if (i == currentPlayer)
 	if (i != currentPlayer) //corrected code BDM 05-31-19
 	{
 	  state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    
