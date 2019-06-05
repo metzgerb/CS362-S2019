@@ -599,5 +599,227 @@ protected void setUp() {
                             new ResultPair("HtTp", true),
                             new ResultPair("telnet", false)};
 
+   
+   public void testAllValid() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
 
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+              
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //true path option
+       part = testUrlPathOptions[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("All Valid Results: ");
+       System.out.println(url);
+       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println("isValid passed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid failed, TEST FAILED!\n");
+       }
+    		       
+   }
+   
+   
+   
+   public void testFalseScheme() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //false scheme
+       ResultPair part = testUrlScheme[3];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+              
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //true path option
+       part = testUrlPathOptions[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Scheme Results: ");
+       System.out.println(url);
+       
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+    		       
+   }
+
+   
+   public void testFalseAuthority() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //false authority
+       part = testUrlAuthority[6];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+         
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //true path option
+       part = testUrlPathOptions[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Authority Results: ");
+       System.out.println(url);
+
+       
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+    		       
+   }
+   
+   
+   public void testFalsePort() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //false port
+       part = testUrlPort[2];
+       testBuffer.append(part.item);
+          
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //true path option
+       part = testUrlPathOptions[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Port Results: ");
+       System.out.println(url);
+      
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+    		       
+   }
+
+
+   public void testFalsePath() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+          
+       //false path
+       part = testPath[3];
+       testBuffer.append(part.item);
+       
+       //true path option
+       part = testUrlPathOptions[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Path Results: ");
+       System.out.println(url);
+
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+    		       
+   }
+   
+   public void testFalsePathOption() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+          
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //false path option
+       part = testUrlPathOptions[3];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Path Option Results: ");
+       System.out.println(url);
+
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+    		       
+   }
+   
 }
