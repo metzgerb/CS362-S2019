@@ -633,7 +633,7 @@ protected void setUp() {
        } else {
     	   System.out.println("isValid failed, TEST FAILED!\n");
        }
-    		       
+       assertTrue(urlValidator.isValid(url));	       
    }
    
    
@@ -671,7 +671,7 @@ protected void setUp() {
        } else {
     	   System.out.println("isValid passed, TEST FAILED!\n");
        }
-    		       
+       assertFalse(urlValidator.isValid(url));	       	       
    }
 
    
@@ -709,7 +709,7 @@ protected void setUp() {
        } else {
     	   System.out.println("isValid passed, TEST FAILED!\n");
        }
-    		       
+       assertFalse(urlValidator.isValid(url));	       	       
    }
    
    
@@ -746,7 +746,7 @@ protected void setUp() {
        } else {
     	   System.out.println("isValid passed, TEST FAILED!\n");
        }
-    		       
+       assertFalse(urlValidator.isValid(url));	       	       
    }
 
 
@@ -783,7 +783,7 @@ protected void setUp() {
        } else {
     	   System.out.println("isValid passed, TEST FAILED!\n");
        }
-    		       
+       assertFalse(urlValidator.isValid(url));	       	       
    }
    
    public void testFalsePathOption() {
@@ -819,7 +819,44 @@ protected void setUp() {
        } else {
     	   System.out.println("isValid passed, TEST FAILED!\n");
        }
-    		       
+       assertFalse(urlValidator.isValid(url));	       	       
+   }
+   
+   public void testFalseFormat() {
+	   UrlValidator urlValidator = new UrlValidator();
+      /* StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+          
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //false path option
+       part = testUrlPathOptions[3];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();*/
+	   String url = "This does not have the format of a url";
+       System.out.println("False Input Results: ");
+       System.out.println(url);
+
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+       assertFalse(urlValidator.isValid(url));	       
    }
    
 }
