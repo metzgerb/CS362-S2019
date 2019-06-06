@@ -16,6 +16,9 @@
  */
 
 import junit.framework.TestCase;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Performs Validation Test for url validations.
@@ -837,4 +840,108 @@ protected void setUp() {
        assertFalse(urlValidator.isValid(url));	       
    }
    
+   public void testEmptyString() {
+	    UrlValidator validator = new UrlValidator();
+	    
+	    System.out.println("Empty string Results:");
+	    if (validator.isValid("") == false) {
+	    	System.out.println("Empty string returns false, TEST PASSED!\n");
+	    } else {
+	    	System.out.println("Empty string returns true, TEST FAILED!\n");
+	    }
+	}
+   
+   public void testGoodFormatEmptyValues() {
+	    UrlValidator validator = new UrlValidator();
+	    
+	    System.out.println("Proper Format, Empty Value Results:");
+	    System.out.println("http://meep?query=t#x");
+	    if (validator.isValid("://?#") == false) {
+	    	System.out.println("Format with empty values returns false, TEST PASSED!\n");
+	    } else {
+	    	System.out.println("Format with empty values returns true, TEST FAILED!\n");
+	    }
+	}
+   
+   public void testSchemeCase() {
+	    UrlValidator validator = new UrlValidator();
+	    String url = "hTtps://bit.ly/2Wrd9rP";
+	    
+	    System.out.println("Scheme Case Results:");
+	    System.out.println(url);
+	    if (validator.isValid(url) == false) {
+	    	System.out.println("Scheme case returns false, TEST FAILED!\n");
+	    	assertFalse(validator.isValid(url));
+	    } else {
+	    	System.out.println("Scheme returns true, TEST PASSED!\n");
+	    	assertTrue(validator.isValid(url));
+	    }
+	}
+   
+   // Test valid URLs from file, break when test fails.
+   public void testValidFromFile() {
+	   try {
+		   	UrlValidator validator = new UrlValidator();
+		    String url = "";
+			Scanner scanner = new Scanner(new File("validURL.txt"));
+			int fails = 0;
+			int pass = 0;
+			
+			// Read in each line, which has a URL
+			while (scanner.hasNextLine()) {
+				url = scanner.nextLine();
+				 if (validator.isValid(url) == false) {
+				    	System.out.println("Valid URL returns false, TEST FAILED!\n");
+				    	System.out.println(url);
+				    	fails++;
+				    	break;
+				    } else {
+				    	System.out.println("Valid URL returns true, TEST " + ++pass +" PASSED!\n");
+				    }
+			}
+			scanner.close();
+			// Determine if test fails or not 
+			if (fails >= 0) {
+				assertFalse(validator.isValid(url));
+			}
+			assertTrue(validator.isValid(url));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+   
+// Test invalid URLs from file, break when test passes.
+   public void testInValidFromFile() {
+	   try {
+		   	UrlValidator validator = new UrlValidator();
+		    String url = "";
+			Scanner scanner = new Scanner(new File("inValidURL.txt"));
+			int fails = 0;
+			int pass = 0;
+			
+			// Read in each URL from file line by line
+			while (scanner.hasNextLine()) {
+				url = scanner.nextLine();
+				// Break if true
+				 if (validator.isValid(url) == true) {
+				    	System.out.println("Valid URL returns false, TEST FAILED!\n");
+				    	System.out.println(url);
+				    	fails++;
+				    	break;
+				    } else {
+				    	System.out.println("Valid URL returns true, TEST " + ++pass +" PASSED!\n");
+				    }
+			}
+			scanner.close();
+			
+			// Fail test if isValid returns true
+			if (fails >= 0) {
+				assertTrue(validator.isValid(url));
+			}
+			assertFalse(validator.isValid(url));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
