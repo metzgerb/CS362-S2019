@@ -881,7 +881,7 @@ protected void setUp() {
    // Test valid URLs from file, break when test fails.
    public void testValidFromFile() {
 	   try {
-		   	UrlValidator validator = new UrlValidator();
+		   	UrlValidator validator = new UrlValidator(new String[] {"http","file", "https", "ftp"}, UrlValidator.ALLOW_LOCAL_URLS);
 		    String url = "";
 			Scanner scanner = new Scanner(new File("validURL.txt"));
 			int fails = 0;

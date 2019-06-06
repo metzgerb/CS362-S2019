@@ -35,3 +35,9 @@ ftp://j.mp
 https://www.ietf.org/rfc/rfc2396.txt
 HTTP://j.mp
 http://flip1.engr.oregonstate.edu:7510/
+file:///C:/some.file
+file://
+http://www.httpwatch.com/features.htm/#print
+http://www.httpwatch.com#print
+http://www.httpwatch.net#print
+https://cooljobs.manzana.com
