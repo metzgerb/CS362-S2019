@@ -924,12 +924,12 @@ protected void setUp() {
 				url = scanner.nextLine();
 				// Break if true
 				 if (validator.isValid(url) == true) {
-				    	System.out.println("Valid URL returns false, TEST FAILED!\n");
+				    	System.out.println("Valid URL returns true, TEST FAILED!\n");
 				    	System.out.println(url);
 				    	fails++;
 				    	break;
 				    } else {
-				    	System.out.println("Valid URL returns true, TEST " + ++pass +" PASSED!\n");
+				    	System.out.println("Valid URL returns false, TEST " + ++pass +" PASSED!\n");
 				    }
 			}
 			scanner.close();
