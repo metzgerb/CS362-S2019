@@ -846,20 +846,10 @@ protected void setUp() {
 	    System.out.println("Empty string Results:");
 	    if (validator.isValid("") == false) {
 	    	System.out.println("Empty string returns false, TEST PASSED!\n");
+	    	assertFalse(validator.isValid(""));
 	    } else {
 	    	System.out.println("Empty string returns true, TEST FAILED!\n");
-	    }
-	}
-   
-   public void testGoodFormatEmptyValues() {
-	    UrlValidator validator = new UrlValidator();
-	    
-	    System.out.println("Proper Format, Empty Value Results:");
-	    System.out.println("http://meep?query=t#x");
-	    if (validator.isValid("://?#") == false) {
-	    	System.out.println("Format with empty values returns false, TEST PASSED!\n");
-	    } else {
-	    	System.out.println("Format with empty values returns true, TEST FAILED!\n");
+	    	assertTrue(validator.isValid(""));
 	    }
 	}
    
