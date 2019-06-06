@@ -31,3 +31,7 @@ http://a.b-c.de
 http://223.255.255.254
 https://bit.ly/2Wrd9rP
 https://www.pinterest.com/search/pins/?q=cheesy%20tomato%20sauce&rs=rs&eq=&etslf=2386&term_meta[]=cheesy%7Crecentsearch%7C2&term_meta[]=tomato%7Crecentsearch%7C2&term_meta[]=sauce%7Crecentsearch%7C2
+ftp://j.mp
+https://www.ietf.org/rfc/rfc2396.txt
+HTTP://j.mp
+http://flip1.engr.oregonstate.edu:7510/
