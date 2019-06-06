@@ -901,7 +901,7 @@ protected void setUp() {
 			}
 			scanner.close();
 			// Determine if test fails or not 
-			if (fails >= 0) {
+			if (fails > 0) {
 				assertFalse(validator.isValid(url));
 			}
 			assertTrue(validator.isValid(url));
@@ -935,7 +935,7 @@ protected void setUp() {
 			scanner.close();
 			
 			// Fail test if isValid returns true
-			if (fails >= 0) {
+			if (fails > 0) {
 				assertTrue(validator.isValid(url));
 			}
 			assertFalse(validator.isValid(url));
