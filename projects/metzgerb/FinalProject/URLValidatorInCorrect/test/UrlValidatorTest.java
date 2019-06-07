@@ -19,6 +19,7 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * Performs Validation Test for url validations.
@@ -500,7 +501,156 @@ protected void setUp() {
        assertTrue(validator.isValid("http://example.com/serach?address=Main%20Avenue"));
        assertTrue(validator.isValid("http://example.com/serach?address=Main+Avenue"));
    }
+   
+   
+   /*********************************************************************************
+    * Function Name: testRandomWithPath
+    * Inputs: None
+    * Outputs: None
+    * Description: Builds arrays of scheme, authority, port, path, and query, then 
+    * 		randomly combines the parts into a URL string and passes to isValid for 
+    * 		testing. 
+    *********************************************************************************/
+   public void testRandomWithPath() {
+	   //define initial variables
+	   ResultPair randScheme, randAuth, randPort, randPath, randQuery;
+	   int randIndex;
+	   int pass = 0;
+	   int total = 3000;
+	   
+	   //initialize default validator
+	   UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   //seed random number generator
+	   Random rand = new Random(System.currentTimeMillis());
+	   
+	   //run test loop
+	   for(int i = 0; i < total; i++) {
+		   //generate random scheme
+		   randIndex = rand.nextInt(testUrlScheme.length);
+		   randScheme = testUrlScheme[randIndex];
 
+		   //generate random authority
+		   randIndex = rand.nextInt(testUrlAuthority.length);
+		   randAuth = testUrlAuthority[randIndex];
+		   
+		   //generate random port
+		   randIndex = rand.nextInt(testUrlPort.length);
+		   randPort = testUrlPort[randIndex];
+		   
+		   //generate random path
+		   randIndex = rand.nextInt(testPath.length);
+		   randPath = testPath[randIndex];
+		   
+		   //generate random query
+		   randIndex = rand.nextInt(testUrlQuery.length);
+		   randQuery = testUrlQuery[randIndex];
+		   
+		   //concatenate parts into URL
+		   String testUrl = randScheme.item + randAuth.item + randPort.item + randPath.item + randQuery.item;
+		   
+		   //calculate expected validity based on URL parts
+		   boolean expResult = randScheme.valid && randAuth.valid && randPort.valid && randPath.valid && randQuery.valid;
+		   
+		   //test against validator
+		   boolean actResult = validator.isValid(testUrl);
+		   if(expResult == actResult)
+		   {
+			   //System.out.println("Testing " + testUrl + " (expected: " + expResult + ", actual: " + actResult + "): PASS");
+			   pass++;
+			   
+		   } else {
+			   System.out.println("Testing " + testUrl + " (expected: " + expResult + ", actual: " + actResult + "): FAIL");
+		   }
+		   
+		   assertEquals(expResult,actResult);
+	   }
+	   
+	   //print testing results
+	   System.out.println("\n**********************************************************");
+	   System.out.println("Random with Path Testing Results:");
+	   System.out.println("Passed: " + pass);
+	   System.out.println("Failed: " + (total-pass));
+	   System.out.println("Total: " + total);
+	   System.out.println("**********************************************************\n");
+   }
+   
+   /*********************************************************************************
+    * Function Name: testRandomWithPathOptions
+    * Inputs: None
+    * Outputs: None
+    * Description: Builds arrays of scheme, authority, port, pathOptions, and query, then 
+    * 		randomly combines the parts into a URL string and passes to isValid for 
+    * 		testing. 
+    *********************************************************************************/
+   public void testRandomWithPathOptions() {
+	   //define initial variables
+	   ResultPair randScheme, randAuth, randPort, randPath, randQuery;
+	   int randIndex;
+	   int pass = 0;
+	   int total = 3000;
+	   
+	   //initialize default validator
+	   long options =
+	            UrlValidator.ALLOW_2_SLASHES
+	                + UrlValidator.ALLOW_ALL_SCHEMES
+	                + UrlValidator.NO_FRAGMENTS;
+	   UrlValidator validator = new UrlValidator(options);
+	   
+	   //seed random number generator
+	   Random rand = new Random(System.currentTimeMillis());
+	   
+	   //run test loop
+	   for(int i = 0; i < total; i++) {
+		   //generate random scheme
+		   randIndex = rand.nextInt(testUrlScheme.length);
+		   randScheme = testUrlScheme[randIndex];
+
+		   //generate random authority
+		   randIndex = rand.nextInt(testUrlAuthority.length);
+		   randAuth = testUrlAuthority[randIndex];
+		   
+		   //generate random port
+		   randIndex = rand.nextInt(testUrlPort.length);
+		   randPort = testUrlPort[randIndex];
+		   
+		   //generate random path
+		   randIndex = rand.nextInt(testUrlPathOptions.length);
+		   randPath = testUrlPathOptions[randIndex];
+		   
+		   //generate random query
+		   randIndex = rand.nextInt(testUrlQuery.length);
+		   randQuery = testUrlQuery[randIndex];
+		   
+		   //concatenate parts into URL
+		   String testUrl = randScheme.item + randAuth.item + randPort.item + randPath.item + randQuery.item;
+		   
+		   //calculate expected validity based on URL parts
+		   boolean expResult = randScheme.valid && randAuth.valid && randPort.valid && randPath.valid && randQuery.valid;
+		   
+		   //test against validator
+		   boolean actResult = validator.isValid(testUrl);
+		   if(expResult == actResult)
+		   {
+			   //System.out.println("Testing " + testUrl + " (expected: " + expResult + ", actual: " + actResult + "): PASS");
+			   pass++;
+			   
+		   } else {
+			   System.out.println("Testing " + testUrl + " (expected: " + expResult + ", actual: " + actResult + "): FAIL");
+		   }
+		   
+		   assertEquals(expResult,actResult);
+	   }
+	   
+	   //print testing results
+	   System.out.println("\n**********************************************************");
+	   System.out.println("Random with PathOptions Testing Results:");
+	   System.out.println("Passed: " + pass);
+	   System.out.println("Failed: " + (total-pass));
+	   System.out.println("Total: " + total);
+	   System.out.println("**********************************************************\n");
+   }
+   
    //-------------------- Test data for creating a composite URL
    /**
     * The data given below approximates the 4 parts of a URL
@@ -517,7 +667,24 @@ protected void setUp() {
                                new ResultPair("http:/", false),
                                new ResultPair("http:", false),
                                new ResultPair("http/", false),
-                               new ResultPair("://", false)};
+                               new ResultPair("://", false),
+                               new ResultPair("trash", false),
+                               new ResultPair("aaa://", true),
+                               new ResultPair("acap://", true),
+                               new ResultPair("coap://", true),
+                               new ResultPair("crid://", true),
+                               new ResultPair("go://", true),
+                               new ResultPair("gopher://", true),
+                               new ResultPair("imap://", true),
+                               new ResultPair("nntp://", true),
+                               new ResultPair("pop://", true),
+                               new ResultPair("snmp://", true),
+                               new ResultPair(".http://", false),
+                               new ResultPair("123", false),
+                               new ResultPair("00101://", false),
+                               new ResultPair("make:", false),
+                               new ResultPair("", false)
+   };
 
    ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
                                   new ResultPair("www.google.com.", true),
@@ -538,8 +705,20 @@ protected void setUp() {
                                   new ResultPair("aaa.", false),
                                   new ResultPair(".aaa", false),
                                   new ResultPair("aaa", false),
-                                  new ResultPair("", false)
+                                  new ResultPair("", false),
+                                  new ResultPair("www.example.com", true),
+                                  new ResultPair("✪df.ws", true),
+                                  new ResultPair("foo.org", true),
+                                  new ResultPair("142.42.1.1", true),
+                                  new ResultPair("foo.bar", true),
+                                  new ResultPair("??", false),
+                                  new ResultPair(" shouldfail.com", false),
+                                  new ResultPair("-error-.invalid", false),
+                                  new ResultPair("10.1.1.1", true),
+                                  new ResultPair(".www.foo.bar", false),
+                                  new ResultPair("3628126748", false),                                  
    };
+   
    ResultPair[] testUrlPort = {new ResultPair(":80", true),
                              new ResultPair(":65535", true), // max possible
                              new ResultPair(":65536", false), // max possible +1
@@ -548,7 +727,13 @@ protected void setUp() {
                              new ResultPair(":-1", false),
                              new ResultPair(":65636", false),
                              new ResultPair(":999999999999999999", false),
-                             new ResultPair(":65a", false)
+                             new ResultPair(":65a", false),
+                             new ResultPair(":test", false),
+                             new ResultPair(":1", true),
+                             new ResultPair(":__", false),
+                             new ResultPair(": 123", false),
+                             new ResultPair(":45 035", false),
+                             new ResultPair(":1234", true)
    };
    ResultPair[] testPath = {new ResultPair("/test1", true),
                           new ResultPair("/t123", true),
@@ -581,7 +766,8 @@ protected void setUp() {
 
    ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
                               new ResultPair("?action=edit&mode=up", true),
-                              new ResultPair("", true)
+                              new ResultPair("", true),
+                              new ResultPair("?123546afeefw", true)
    };
 
    Object[] testUrlParts = {testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery};
