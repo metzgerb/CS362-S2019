@@ -559,6 +559,8 @@ protected void setUp() {
 		   } else {
 			   System.out.println("Testing " + testUrl + " (expected: " + expResult + ", actual: " + actResult + "): FAIL");
 		   }
+		   
+		   assertEquals(expResult,actResult);
 	   }
 	   
 	   //print testing results
@@ -633,6 +635,8 @@ protected void setUp() {
 		   } else {
 			   System.out.println("Testing " + testUrl + " (expected: " + expResult + ", actual: " + actResult + "): FAIL");
 		   }
+		   
+		   assertEquals(expResult,actResult);
 	   }
 	   
 	   //print testing results
