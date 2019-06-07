@@ -16,6 +16,9 @@
  */
 
 import junit.framework.TestCase;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Performs Validation Test for url validations.
@@ -92,16 +95,16 @@ protected void setUp() {
           StringBuilder testBuffer = new StringBuilder();
          boolean expected = true;
          
-         for (int testPartsIndexIndex = 0; testPartsIndexIndex < 0; ++testPartsIndexIndex) {
+         for (int testPartsIndexIndex = 0; testPartsIndexIndex < 5; ++testPartsIndexIndex) {
             int index = testPartsIndex[testPartsIndexIndex];
             
-            ResultPair[] part = (ResultPair[]) testObjects[-1];
+            ResultPair[] part = (ResultPair[]) testObjects[testPartsIndexIndex];
             testBuffer.append(part[index].item);
             expected &= part[index].valid;
          }
          String url = testBuffer.toString();
          
-         boolean result = !urlVal.isValid(url);
+         boolean result = urlVal.isValid(url);
          assertEquals(url, expected, result);
          if (printStatus) {
             if (printIndex) {
@@ -334,14 +337,14 @@ protected void setUp() {
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
-      for (int testPartsIndexIndex = testPartsIndex.length; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
+      for (int testPartsIndexIndex = testPartsIndex.length-1; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
           int index = testPartsIndex[testPartsIndexIndex];
          ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
          maxIndex &= (index == (part.length - 1));
          
          if (carry) {
             if (index < part.length - 1) {
-            	index--;
+            	index++;
                testPartsIndex[testPartsIndexIndex] = index;
                carry = false;
             } else {
@@ -599,5 +602,285 @@ protected void setUp() {
                             new ResultPair("HtTp", true),
                             new ResultPair("telnet", false)};
 
+   
+   public void testAllValid() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
 
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+              
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+       
+       //true path option
+       part = testUrlPathOptions[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("All Valid Results: ");
+       System.out.println(url);
+       
+       if(urlValidator.isValid(url)) {
+    	   System.out.println("isValid passed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid failed, TEST FAILED!\n");
+       }
+       assertTrue(urlValidator.isValid(url));	       
+   }
+   
+   
+   
+   public void testFalseScheme() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //false scheme
+       ResultPair part = testUrlScheme[3];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+              
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Scheme Results: ");
+       System.out.println(url);
+       
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+       assertFalse(urlValidator.isValid(url));	       	       
+   }
+
+   
+   public void testFalseAuthority() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //false authority
+       part = testUrlAuthority[6];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+         
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Authority Results: ");
+       System.out.println(url);
+
+       
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+       assertFalse(urlValidator.isValid(url));	       	       
+   }
+   
+   
+   public void testFalsePort() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //false port
+       part = testUrlPort[2];
+       testBuffer.append(part.item);
+          
+       //true path
+       part = testPath[0];
+       testBuffer.append(part.item);
+  
+       String url = testBuffer.toString();
+       System.out.println("False Port Results: ");
+       System.out.println(url);
+      
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+       assertFalse(urlValidator.isValid(url));	       	       
+   }
+
+
+   public void testFalsePath() {
+	   UrlValidator urlValidator = new UrlValidator();
+       StringBuilder testBuffer = new StringBuilder();
+
+       //true scheme
+       ResultPair part = testUrlScheme[0];
+       testBuffer.append(part.item);
+          
+       //true authority
+       part = testUrlAuthority[0];
+       testBuffer.append(part.item);
+       
+       //true port
+       part = testUrlPort[0];
+       testBuffer.append(part.item);
+          
+       //false path
+       part = testPath[3];
+       testBuffer.append(part.item);
+      
+       String url = testBuffer.toString();
+       System.out.println("False Path Results: ");
+       System.out.println(url);
+
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+       assertFalse(urlValidator.isValid(url));	       	       
+   }
+   
+   
+   
+   public void testFalseFormat() {
+	   UrlValidator urlValidator = new UrlValidator();
+	   String url = "This does not have the format of a url";
+       System.out.println("False Format Results: ");
+       System.out.println(url);
+
+       if(urlValidator.isValid(url) == false) {
+    	   System.out.println("isValid failed, TEST PASSED!\n");
+       } else {
+    	   System.out.println("isValid passed, TEST FAILED!\n");
+       }
+       assertFalse(urlValidator.isValid(url));	       
+   }
+   
+   public void testEmptyString() {
+	    UrlValidator validator = new UrlValidator();
+	    
+	    System.out.println("Empty string Results:");
+	    if (validator.isValid("") == false) {
+	    	System.out.println("Empty string returns false, TEST PASSED!\n");
+	    	assertFalse(validator.isValid(""));
+	    } else {
+	    	System.out.println("Empty string returns true, TEST FAILED!\n");
+	    	assertTrue(validator.isValid(""));
+	    }
+	}
+   
+   public void testSchemeCase() {
+	    UrlValidator validator = new UrlValidator();
+	    String url = "hTtps://bit.ly/2Wrd9rP";
+	    
+	    System.out.println("Scheme Case Results:");
+	    System.out.println(url);
+	    if (validator.isValid(url) == false) {
+	    	System.out.println("Scheme case returns false, TEST FAILED!\n");
+	    	assertFalse(validator.isValid(url));
+	    } else {
+	    	System.out.println("Scheme returns true, TEST PASSED!\n");
+	    	assertTrue(validator.isValid(url));
+	    }
+	}
+   
+   // Test valid URLs from file, break when test fails.
+   public void testValidFromFile() {
+	   try {
+		   	UrlValidator validator = new UrlValidator(new String[] {"http","file", "https", "ftp"}, UrlValidator.ALLOW_LOCAL_URLS);
+		    String url = "";
+			Scanner scanner = new Scanner(new File("validURL.txt"));
+			int fails = 0;
+			int pass = 0;
+			
+			// Read in each line, which has a URL
+			while (scanner.hasNextLine()) {
+				url = scanner.nextLine();
+				 if (validator.isValid(url) == false) {
+				    	System.out.println("Valid URL returns false, TEST FAILED!\n");
+				    	System.out.println(url);
+				    	fails++;
+				    	break;
+				    } else {
+				    	System.out.println("Valid URL returns true, TEST " + ++pass +" PASSED!\n");
+				    }
+			}
+			scanner.close();
+			// Determine if test fails or not 
+			if (fails > 0) {
+				assertFalse(validator.isValid(url));
+			}
+			assertTrue(validator.isValid(url));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+   
+// Test invalid URLs from file, break when test passes.
+   public void testInValidFromFile() {
+	   try {
+		   	UrlValidator validator = new UrlValidator();
+		    String url = "";
+			Scanner scanner = new Scanner(new File("inValidURL.txt"));
+			int fails = 0;
+			int pass = 0;
+			
+			// Read in each URL from file line by line
+			while (scanner.hasNextLine()) {
+				url = scanner.nextLine();
+				// Break if true
+				 if (validator.isValid(url) == true) {
+				    	System.out.println("Valid URL returns true, TEST FAILED!\n");
+				    	System.out.println(url);
+				    	fails++;
+				    	break;
+				    } else {
+				    	System.out.println("Valid URL returns false, TEST " + ++pass +" PASSED!\n");
+				    }
+			}
+			scanner.close();
+			
+			// Fail test if isValid returns true
+			if (fails > 0) {
+				assertTrue(validator.isValid(url));
+			}
+			assertFalse(validator.isValid(url));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
