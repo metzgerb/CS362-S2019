@@ -660,10 +660,6 @@ protected void setUp() {
        //true path
        part = testPath[0];
        testBuffer.append(part.item);
-       
-       //true path option
-       part = testUrlPathOptions[0];
-       testBuffer.append(part.item);
   
        String url = testBuffer.toString();
        System.out.println("False Scheme Results: ");
@@ -696,10 +692,6 @@ protected void setUp() {
          
        //true path
        part = testPath[0];
-       testBuffer.append(part.item);
-       
-       //true path option
-       part = testUrlPathOptions[0];
        testBuffer.append(part.item);
   
        String url = testBuffer.toString();
@@ -735,10 +727,6 @@ protected void setUp() {
        //true path
        part = testPath[0];
        testBuffer.append(part.item);
-       
-       //true path option
-       part = testUrlPathOptions[0];
-       testBuffer.append(part.item);
   
        String url = testBuffer.toString();
        System.out.println("False Port Results: ");
@@ -772,11 +760,7 @@ protected void setUp() {
        //false path
        part = testPath[3];
        testBuffer.append(part.item);
-       
-       //true path option
-       part = testUrlPathOptions[0];
-       testBuffer.append(part.item);
-  
+      
        String url = testBuffer.toString();
        System.out.println("False Path Results: ");
        System.out.println(url);
@@ -789,41 +773,6 @@ protected void setUp() {
        assertFalse(urlValidator.isValid(url));	       	       
    }
    
-   public void testFalsePathOption() {
-	   UrlValidator urlValidator = new UrlValidator();
-       StringBuilder testBuffer = new StringBuilder();
-
-       //true scheme
-       ResultPair part = testUrlScheme[0];
-       testBuffer.append(part.item);
-          
-       //true authority
-       part = testUrlAuthority[0];
-       testBuffer.append(part.item);
-       
-       //true port
-       part = testUrlPort[0];
-       testBuffer.append(part.item);
-          
-       //true path
-       part = testPath[0];
-       testBuffer.append(part.item);
-       
-       //false path option
-       part = testUrlPathOptions[3];
-       testBuffer.append(part.item);
-  
-       String url = testBuffer.toString();
-       System.out.println("False Path Option Results: ");
-       System.out.println(url);
-
-       if(urlValidator.isValid(url) == false) {
-    	   System.out.println("isValid failed, TEST PASSED!\n");
-       } else {
-    	   System.out.println("isValid passed, TEST FAILED!\n");
-       }
-       assertFalse(urlValidator.isValid(url));	       	       
-   }
    
    
    public void testFalseFormat() {
